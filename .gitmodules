@@ -1,0 +1,3 @@
+[submodule "theme-tester"]
+	path = theme-tester
+	url = https://github.com/vizality/vizality-theme-tester
