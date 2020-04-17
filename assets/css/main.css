@@ -167,14 +167,14 @@ html, body {
 }
 
 .coming-txt {
-  color: #3700b3;
+  color: #7459b3;
   font-weight: 500;
 }
 
 .soon-txt {
   font-weight: 900;
   margin-left: -2px;
-  color: #6200ee;
+  color: #a877ed;
 }
 
 @media screen and (max-width: 650px) {
