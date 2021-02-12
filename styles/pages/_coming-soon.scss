@@ -2,24 +2,14 @@
 
 .vz-coming-soon {
   $base: &;
+  @include size(100%);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 100px;
-  &:hover {
-    #{$base}-info {
-       transform: translateY(20px);
-       opacity: 1;
-     }
-     #{$base}-social-items {
-       transform: translateY(50px) !important;
-     }
-  }
   &-logo {
     width: 50%;
     max-height: 30%;
-    margin-bottom: 30px;
   }
   &-banner {
     width: 100%;
@@ -33,17 +23,10 @@
     text-align: center;
   }
   &-info {
-    transform: translateY(-10px);
-    transition: .2s ease-in-out;
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 14px;
+    font-weight: 400;
     color: color('secondary-9');
-    opacity: 0;
-    pointer-events: none;
-    height: 0;
-    margin: 0 40px;
-    overflow: visible;
-    line-height: 1.5;
+    margin-left: 10px;
   }
   &-social-item {
     margin: 0 20px;

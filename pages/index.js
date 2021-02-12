@@ -11,7 +11,10 @@ export default function Home () {
         transition={{ delay: 1 }}
         className='vz-coming-soon-banner'
       >
-        Coming Soon
+        Coming Soon...
+        <span className='vz-coming-soon-info'>
+          Join our Discord server to get all of the latest community news, updates, previews, and become an alpha tester!
+        </span>
       </motion.div>
       <div className='vz-coming-soon'>
         <motion.h1
@@ -22,9 +25,6 @@ export default function Home () {
         >
           <Icon size='100%' name='VizalityVZ' />
         </motion.h1>
-        <span className='vz-coming-soon-info'>
-          Join our Discord server to get all of the latest community news, updates, previews, and become an alpha tester!
-        </span>
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
