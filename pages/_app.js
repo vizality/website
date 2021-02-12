@@ -26,7 +26,7 @@ export default function Vizality ({ Component, pageProps }) {
         <meta property='og:url' content='https://vizality.com' />
         <meta property='og:site_name' content='Vizality' />
         <meta property='og:description' content='A Discord app client modification, allowing for a truly customizable experience through the use of plugins, themes, and built-in settings.' />
-        <meta property='og:image' content='https://vizality.com/images/web.png' />
+        <meta property='og:image' content='https://vizality.com/images/vizality-web.png' />
         <meta property='og:image:width' content='1200' />
         <meta property='og:image:height' content='630' />
 
@@ -34,7 +34,7 @@ export default function Vizality ({ Component, pageProps }) {
         <meta property='twitter:site' content='@vizality' />
         <meta property='twitter:title' content='Vizality' />
         <meta property='twitter:description' content='A Discord app client modification, allowing for a truly customizable experience through the use of plugins, themes, and built-in settings.' />
-        <meta property='twitter:image:src' content='https://vizality.com/images/web.png' />
+        <meta property='twitter:image:src' content='https://vizality.com/images/vizality-web.png' />
         <meta property='twitter:image:width' content='1200' />
         <meta property='twitter:image:height' content='630' />
       </Head>
