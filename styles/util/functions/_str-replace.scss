@@ -1,0 +1,9 @@
+//  Helper function to replace characters in a string
+@function str-replace($string, $search, $replace-with: '') {
+  $index: str-index($string, $search); 
+  @return if($index, 
+    str-slice($string, 1, $index - 1) + $replace-with + 
+    str-replace(str-slice($string, $index + 
+    str-length($search)), $search, $replace-with), 
+    $string); 
+}

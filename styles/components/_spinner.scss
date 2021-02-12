@@ -1,0 +1,49 @@
+@use '../util' as *;
+
+:root {
+  --vz-spinner-size: 100px;
+  --vz-spinner-border-radius: 50%;
+  --vz-spinner-animation: rotate360 1s alternate infinite;
+  --vz-spinner-border-width: 4px;
+  --vz-spinner-border-style: dashed;
+  --vz-spinner-border-color: #{color('secondary-6')};
+}
+
+.vz-spinner {
+  @include size(var(--vz-spinner-size));
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  border: var(--vz-spinner-border-width) var(--vz-spinner-border-style) var(--vz-spinner-border-color);
+  border-radius: var(--vz-spinner-border-radius);
+  animation: var(--vz-spinner-animation);
+  &::before {
+    content: '';
+    @include size(calc(var(--vz-spinner-size) / 5));
+    border-radius: var(--vz-spinner-border-radius);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background-color: color('white');
+  }
+  &::after {
+    content: '';
+    @include size(calc(var(--vz-spinner-size) * .7));
+    border-radius: var(--vz-spinner-border-radius);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    box-shadow: inset 0 0 0 calc(var(--vz-spinner-size) * .1) color('primary-6');
+  }
+}

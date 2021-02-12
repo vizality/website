@@ -1,0 +1,12 @@
+@keyframes strokeSVG  {
+	0% {
+		stroke-dashoffset: 150;
+		color: transparent;
+		stroke: transparent;
+	}
+	100% {
+   	stroke-dashoffset: 0;
+    color: transparent;
+    stroke-width: 0;
+  }
+}

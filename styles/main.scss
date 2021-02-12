@@ -1,0 +1,56 @@
+@use 'util' as *;
+
+@use 'base';
+@use 'util/keyframes';
+@use 'components';
+@use 'layout';
+@use 'pages';
+
+:root {
+  --vz-font-family: 'Inter', 'Helvetica', 'HelveticaNeue', 'Arial', sans-serif;
+  --vz-font-size: 16px;
+  --vz-font-weight: 300;
+  --vz-line-height: 1.5;
+  --vz-border-radius: 4px;
+  --vz-background-color: #{color('secondary-2')};
+  
+  --vz-color-primary-hue: 335;
+  --vz-color-primary-saturation: 100%;
+  --vz-color-primary-1: var(--vz-color-primary-hue) var(--vz-color-primary-saturation) 7%;
+  --vz-color-primary-2: var(--vz-color-primary-hue) var(--vz-color-primary-saturation) 10%;
+  --vz-color-primary-3: var(--vz-color-primary-hue) var(--vz-color-primary-saturation) 20%;
+  --vz-color-primary-4: var(--vz-color-primary-hue) var(--vz-color-primary-saturation) 30%;
+  --vz-color-primary-5: var(--vz-color-primary-hue) var(--vz-color-primary-saturation) 40%;
+  --vz-color-primary-6: var(--vz-color-primary-hue) var(--vz-color-primary-saturation) 50%;
+  --vz-color-primary-7: var(--vz-color-primary-hue) var(--vz-color-primary-saturation) 60%;
+  --vz-color-primary-8: var(--vz-color-primary-hue) var(--vz-color-primary-saturation) 70%;
+  --vz-color-primary-9: var(--vz-color-primary-hue) var(--vz-color-primary-saturation) 80%;
+  --vz-color-primary-10: var(--vz-color-primary-hue) var(--vz-color-primary-saturation) 90%;
+  --vz-color-primary-11: var(--vz-color-primary-hue) var(--vz-color-primary-saturation) 100%;
+  
+  --vz-color-secondary-hue: 230;
+  --vz-color-secondary-saturation: 30%;
+  --vz-color-secondary-1: var(--vz-color-secondary-hue) var(--vz-color-secondary-saturation) 7%;
+  --vz-color-secondary-2: var(--vz-color-secondary-hue) var(--vz-color-secondary-saturation) 10%;
+  --vz-color-secondary-3: var(--vz-color-secondary-hue) var(--vz-color-secondary-saturation) 15%;
+  --vz-color-secondary-4: var(--vz-color-secondary-hue) var(--vz-color-secondary-saturation) 25%;
+  --vz-color-secondary-5: var(--vz-color-secondary-hue) var(--vz-color-secondary-saturation) 40%;
+  --vz-color-secondary-6: var(--vz-color-secondary-hue) var(--vz-color-secondary-saturation) 50%;
+  --vz-color-secondary-7: var(--vz-color-secondary-hue) var(--vz-color-secondary-saturation) 60%;
+  --vz-color-secondary-8: var(--vz-color-secondary-hue) var(--vz-color-secondary-saturation) 70%;
+  --vz-color-secondary-9: var(--vz-color-secondary-hue) var(--vz-color-secondary-saturation) 80%;
+  --vz-color-secondary-10: var(--vz-color-secondary-hue) var(--vz-color-secondary-saturation) 90%;
+  --vz-color-secondary-11: var(--vz-color-secondary-hue) var(--vz-color-secondary-saturation) 100%;
+
+  --vz-color-danger: 0 90% 60%;
+  --vz-color-white: 0 0% 100%;
+  --vz-color-black: 0 0% 0%;
+
+  &[vz-mode='light'] {
+    --vz-color-contrast: var(--vz-color-black);
+  }
+
+  &[vz-mode='dark'] {
+    --vz-color-contrast: var(--vz-color-white);
+  }
+}

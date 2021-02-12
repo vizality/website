@@ -1,0 +1,47 @@
+@use '../util' as *;
+
+html,
+body {
+  @include size(100%);
+}
+
+body {
+  font-family: var(--vz-font-family);
+  font-weight: var(--vz-font-weight);
+  font-size: var(--vz-font-size);
+  line-height: var(--vz-line-height);
+  background-color: var(--vz-background-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  user-select: none;
+}
+
+#__next {
+  @include size(100%);
+}
+
+.vz-app-wrapper {
+  @include size(100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vz-heading {
+  font-size: 24px;
+  font-weight: 700;
+  color: color('secondary-11');
+  margin: 0 0 10px;
+  &-note {
+    font-size: 13px;
+    em {
+      margin-right: 7px;
+    }
+  }  
+}
+
+.vz-subtext {
+  font-size: 16px;
+  color: color('secondary-9');
+}

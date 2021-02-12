@@ -1,0 +1,7 @@
+// Shorthand for logos
+@function logo($name, $fallback: null) {
+  @if($fallback) {
+    @return var(--vz-logo-#{$name}, #{$fallback});
+  }
+  @return var(--vz-logo-#{$name});
+}

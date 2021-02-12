@@ -1,0 +1,5 @@
+@use '../util' as *;
+
+.vz-icon-wrapper {
+  @include size(100%);
+}

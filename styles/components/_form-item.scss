@@ -1,0 +1,23 @@
+@use '../util' as *;
+
+.vz-form-item {
+  &-wrapper {
+    & + & {
+      margin-top: 10px;
+    }
+  }
+  &-header {
+    color: color('secondary-7');
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 12px 0 8px;
+    display: inline-block;
+  }
+  &-control {
+    width: 100%;
+    color: color('secondary-9');
+    margin: 30px 0 0;
+  }
+}
+

@@ -1,0 +1,48 @@
+// Generates CSS custom properties (vars) from a map
+
+@mixin generate-css-vars($map, $path: null) {
+  @each $key, $value in $map {
+    $p: if($path, #{$path}-#{$key}, $key);
+    @if type-of($value) == map {
+      @include generate-css-vars($value, $p);
+    }
+    @else {
+      @if ($value != null) {
+        --#{$p}: #{$value};
+      }
+    }
+  }
+}
+
+
+// Example
+// ********************
+//
+// $module: (
+//   'button': (
+//     'background': '#0366d6',
+//     'primary': (
+//       'background': '#ff0000',
+//       'box-shadow': '0 0 10px #000',
+//       'color': '#fff',
+//     )
+//   )
+// );
+
+// :root {
+//   @include generate-css-vars-from-map($module);
+// }
+
+// *********************
+
+// Compiled Output
+// ********************
+
+// :root {
+//   --button-background: #0366d6;
+//   --button-primary-background: #ff0000;
+//   --button-primary-box-shadow: 0 0 10px #000;
+//   --button-primary-color: #fff;
+// }
+
+// *********************

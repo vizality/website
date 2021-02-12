@@ -1,0 +1,48 @@
+@use '../util' as *;
+
+:root {
+  --vz-button-border-radius: 4px;
+  --vz-button-padding: 8px 12px;
+  --vz-button-font-size: 14px;
+  --vz-button-color: #{color('secondary-10')};
+  --vz-button-border-width: 1px;
+  --vz-button-border-color: transparent;
+  --vz-button-border-style: solid;
+  --vz-button-transition: .1s ease-in-out;
+  --vz-button-background-color: transparent;
+}
+
+.vz-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: var(--vz-button-padding);
+  border: var(--vz-button-border-width) var(--vz-button-border-style) var(--vz-button-border-color);
+  border-radius: var(--vz-button-border-radius);
+  color: var(--vz-button-color);
+  font-size: var(--vz-button-font-size);
+  background-color: var(--vz-button-background-color);
+  transition: var(--vz-button-transition);
+  &:hover {
+    --vz-button-color: #{color('white')};
+  }
+  &.primary {
+    --vz-button-background-color: #{color('primary-5')};
+    &:hover {
+      --vz-button-background-color: #{color('primary-6')};
+    }
+  }
+  &.secondary {
+    --vz-button-border-color: #{color('secondary-5')};
+    &:hover {
+      --vz-button-background-color: #{color('secondary-3')};
+    }
+  }
+  &.disabled {
+    opacity: .4;
+  }
+  & + & {
+    margin-left: 10px;
+  }
+}

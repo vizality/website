@@ -1,0 +1,7 @@
+// Shorthand for icons
+@function icon($name, $fallback: null) {
+  @if($fallback) {
+    @return var(--vz-icon-#{$name}, #{$fallback});
+  }
+  @return var(--vz-icon-#{$name});
+}

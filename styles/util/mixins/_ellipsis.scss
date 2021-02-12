@@ -1,0 +1,34 @@
+/// Ellipsis mixin
+/// ..........................................................................
+/// Truncates text and adds an ellipsis to represent overflow.
+///
+/// @argument {number} $max-width [100%]
+///   The `max-width` for the string to respect before being truncated.
+///
+/// @argument {string} $display [inline-block]
+///   Sets the display-value of the element.
+///
+/// @example scss
+///   .element {
+///     @include ellipsis;
+///   }
+///
+///   // CSS Output
+///   .element {
+///     display: inline-block;
+///     max-width: 100%;
+///     overflow: hidden;
+///     text-overflow: ellipsis;
+///     white-space: nowrap;
+///     word-wrap: normal;
+///   }
+/// .......................................................................... /
+
+@mixin ellipsis($max-width: null, $display: null) {
+  display: $display;
+  max-width: $max-width;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: normal;
+  white-space: nowrap;
+}

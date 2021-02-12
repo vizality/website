@@ -1,0 +1,31 @@
+/// Sets the "width" and/or "height" properties of the element in one statement.
+/// @argument {number (with unit) | string} $width
+/// @argument {number (with unit) | string} $height [$width]
+/// @example scss
+///   .first-element {
+///     @include size(2em);
+///   }
+///
+///   // CSS Output
+///   .first-element {
+///     width: 2em;
+///     height: 2em;
+///   }
+///
+/// @example scss
+///   .second-element {
+///     @include size(auto, 10em);
+///   }
+///
+///   // CSS Output
+///   .second-element {
+///     width: auto;
+///     height: 10em;
+///   }
+@mixin size(
+  $width,
+  $height: $width
+) {
+  width: $width;
+  height: $height;
+}

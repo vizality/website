@@ -1,0 +1,45 @@
+@use '../util' as *;
+
+:root {
+  --vz-nav-background-color: #{color('secondary-1', .9)};
+  --vz-nav-height: 70px;
+
+  --vz-nav-selected-indicator-border-radius: var(--vz-border-radius);
+  --vz-nav-selected-indicator-background-color: #{color('primary-6')};
+  --vz-nav-selected-indicator-height: 5px;
+}
+
+.vz-nav {
+  $base: &;
+  @include size(100%, var(--vz-nav-height));
+  background-color: var(--vz-nav-background-color);
+  display: flex;
+  align-items: center;
+  &-ul {
+    list-style-type: none;
+    display: flex;
+  }
+  &-li {
+    margin: 0 10px;
+    position: relative;
+    &[vz-selected] {
+      #{$base}-a {
+        color: color('contrast');
+      }
+    }
+  }
+  &-a {
+    height: var(--vz-nav-height);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    cursor: pointer;
+  }
+  &-li-active-indicator {
+    @include size(100%, var(--vz-nav-selected-indicator-height));
+    background: var(--vz-nav-selected-indicator-background-color);
+    border-radius: var(--vz-nav-selected-indicator-border-radius);
+    position: absolute;
+    bottom: 0;
+  }
+}

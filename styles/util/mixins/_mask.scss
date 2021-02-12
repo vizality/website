@@ -1,0 +1,26 @@
+///  Masking mixin
+///  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+@mixin mask($image, $background-color: null, $size: null, $extras: no-repeat center, $important: false) {
+	@if ($important) {
+    -webkit-mask: $image $extras !important;
+    mask: $image $extras !important;
+    @if ($background-color) {
+      background-color: $background-color !important;
+    }
+    @if ($size) {
+      -webkit-mask-size: $size !important;
+      mask-size: $size !important;
+    }
+  } @else {
+    -webkit-mask: $image $extras;
+    mask: $image $extras;
+    @if ($background-color) {
+      background-color: $background-color;
+    }
+    @if ($size) {
+      -webkit-mask-size: $size;
+      mask-size: $size;
+    }
+  }
+}

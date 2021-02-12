@@ -1,0 +1,68 @@
+@use '../util' as *;
+
+.vz-coming-soon {
+  $base: &;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 100px;
+  &:hover {
+    #{$base}-info {
+       transform: translateY(20px);
+       opacity: 1;
+     }
+     #{$base}-social-items {
+       transform: translateY(50px) !important;
+     }
+  }
+  &-logo {
+    width: 50%;
+    max-height: 30%;
+    margin-bottom: 30px;
+  }
+  &-banner {
+    width: 100%;
+    color: color('secondary-7');
+    font-weight: 700;
+    background: color('secondary-1');
+    padding: 10px 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+  }
+  &-info {
+    transform: translateY(-10px);
+    transition: .2s ease-in-out;
+    font-size: 16px;
+    font-weight: 300;
+    color: color('secondary-9');
+    opacity: 0;
+    pointer-events: none;
+    height: 0;
+    margin: 0 40px;
+    overflow: visible;
+    line-height: 1.5;
+  }
+  &-social-item {
+    margin: 0 20px;
+    line-height: 0; 
+    font-size: 0;
+    color: transparent; 
+    animation: floating 4s infinite ease-in-out;
+    &s {
+      display: flex;
+      margin-top: 40px;
+      transition: .2s ease-in-out;
+    }
+    .vz-icon-wrapper {
+      color: color('primary-5');
+      transition: var(--vz-button-transition);
+      animation: tossing 2s infinite ease-in-out alternate-reverse;
+      &:hover {
+        color: color('primary-6');
+      }
+    }
+  }
+}

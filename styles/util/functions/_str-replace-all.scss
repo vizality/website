@@ -1,0 +1,14 @@
+// Helper function to replace ALL of a specific set of characters in a string
+@function str-replace-all($string, $replace-with, $search...) {
+  @each $e in $search {
+    @if str-index($replace-with, $e) {
+      @error 'You almost caused an infinite loop! Bad boy.' + \n
+             'Make sure what you\'re replacing with isn\'t contained in what you\'re replacing.';
+    }
+    @while str-index($string, $e) {
+      $index: str-index($string, $e);
+      $string: str-slice($string, 1, $index - 1) + $replace-with + str-slice($string, $index + str-length($e));
+    }
+  }
+  @return $string;
+}

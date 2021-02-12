@@ -1,0 +1,17 @@
+@use '../util' as *;
+
+:root {
+  --vz-link-color: #{color('secondary-9')};
+  --vz-link-font-weight: 300;
+  --vz-link-decoration: none;
+  --vz-link-transition: color .1s ease-in-out;
+}
+
+.vz-link {
+  color: var(--vz-link-color);
+  text-decoration: var(--vz-link-text-decoration);
+  transition: var(--vz-link-transition);
+  &:hover {
+    --vz-link-color: #{color('contrast')};
+  }
+}
