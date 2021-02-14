@@ -13,7 +13,11 @@ export default function Navbar () {
   const [ selected, setSelected ] = useState(router?.pathname);
 
   useEffect(() => {
-    const handleRouteChange = url => setSelected(url);
+    const handleRouteChange = url => {
+      console.log(url);
+      console.log(router?.pathname);
+      setSelected(url);
+    };
     router.events.on('routeChangeStart', handleRouteChange);
     return () => router.events.off('routeChangeStart', handleRouteChange);
   }, []);

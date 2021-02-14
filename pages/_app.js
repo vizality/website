@@ -1,13 +1,16 @@
 import { AnimateSharedLayout } from 'framer-motion';
+import { ChakraProvider } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { DokzProvider } from 'dokz';
 import { useEffect } from 'react';
 import Head from 'next/head';
 
-import Navbar from '../layout/Navbar/Navbar';
-import Canvas from '../components/Canvas';
+import { Navbar } from '@layout';
 
-import '../styles/main.scss';
+import '@styles/main.scss';
 
-export default function Vizality ({ Component, pageProps }) {
+export default function App ({ Component, pageProps }) {
+  const { pathname } = useRouter();
   useEffect(() => {
     document.documentElement.setAttribute('vz-mode', 'dark');
   }, []);
@@ -39,9 +42,28 @@ export default function Vizality ({ Component, pageProps }) {
         <meta property='twitter:image:height' content='630' />
       </Head>
       <AnimateSharedLayout>
-        <Canvas />
         <Navbar />
-        <Component {...pageProps} />
+        {pathname.startsWith('/docs') &&
+          <DokzProvider
+            docsRootPath='pages/docs'
+            githubUrl='vizality/website'
+            branch='master'
+          >
+            <Component {...pageProps} />
+          </DokzProvider>
+        }
+        {pathname.startsWith('/learn') &&
+          <DokzProvider
+            docsRootPath='pages/learn'
+            githubUrl='vizality/website'
+            branch='master'
+          >
+            <Component {...pageProps} />
+          </DokzProvider>
+        }
+        {!pathname.startsWith('/docs') && !pathname.startsWith('/learn') &&
+          <Component {...pageProps} />
+        }
       </AnimateSharedLayout>
     </>
   );

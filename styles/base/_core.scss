@@ -13,12 +13,12 @@ body {
   background-color: var(--vz-background-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
-  user-select: none;
+  overflow: hidden !important;
 }
 
 #__next {
   @include size(100%);
+  overflow: hidden scroll;
 }
 
 .vz-app-wrapper {

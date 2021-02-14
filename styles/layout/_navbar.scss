@@ -1,7 +1,7 @@
 @use '../util' as *;
 
 :root {
-  --vz-nav-background-color: #{color('secondary-1', 0.9)};
+  --vz-nav-background-color: #{color('secondary-1')};
   --vz-nav-height: 70px;
 
   --vz-nav-selected-indicator-border-radius: var(--vz-border-radius);

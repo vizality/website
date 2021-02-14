@@ -13,6 +13,11 @@ const redirects = {
         source: '/docs',
         destination: '/docs/start/getting-started',
         permanent: true
+      },
+      {
+        source: '/learn',
+        destination: '/learn/overview',
+        permanent: true
       }
     ];
   }
