@@ -1,0 +1,91 @@
+@use '../util' as *;
+
+:root {
+  --vz-nav-background-color: #{color('secondary-1', 0.9)};
+  --vz-nav-height: 70px;
+
+  --vz-nav-selected-indicator-border-radius: var(--vz-border-radius);
+  --vz-nav-selected-indicator-background-color: #{color('primary-6')};
+  --vz-nav-selected-indicator-height: 5px;
+}
+
+.vz-nav {
+  $base: &;
+  width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  &-wrapper {
+    @include size(100%, var(--vz-nav-height));
+    background-color: var(--vz-nav-background-color);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  &-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0; 
+    font-size: 0;
+    color: transparent; 
+    &:hover {
+      stroke-width: 5px;
+      path {
+        stroke-dasharray: 150;
+        animation: strokeSVG .75s ease-in forwards, fillSVG .25s .5s ease-in forwards;
+        stroke-width: 5;
+      }
+    }
+    .vz-icon-wrapper {
+      display: flex;
+    }
+  }
+  &-ul {
+    list-style-type: none;
+    display: flex;
+    margin-left: 30px;
+  }
+  &-li {
+    margin: 0 5px;
+    position: relative;
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 100%;
+    text-decoration: none;
+    &[vz-selected] {
+      #{$base}-a {
+        color: color('contrast');
+        font-weight: 700;
+      }
+    }
+    &::after {
+      content: attr(vz-route);
+      display: block;
+      height: 0;
+      padding: 0 10px;
+      font-weight: 700;
+      visibility: hidden;
+    }
+  }
+  &-a {
+    height: var(--vz-nav-height);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  &-li-active-indicator {
+    @include size(100%, var(--vz-nav-selected-indicator-height));
+    background: var(--vz-nav-selected-indicator-background-color);
+    border-radius: var(--vz-nav-selected-indicator-border-radius);
+    position: absolute;
+    bottom: 0;
+  }
+}
