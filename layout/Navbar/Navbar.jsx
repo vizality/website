@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import Icon from '@components/Icon';
+import { Icon } from '@components';
 
 import NavItem from './NavItem';
 
