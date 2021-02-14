@@ -3,12 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["components/*"],
-      "@layout/*": ["layout/*"],
-      "@pages/*": ["pages/*"],
-      "@hooks/*": ["hooks/*"],
-      "@api/*": ["pages/api/*"],
-      "@docs/*": ["pages/docs/*"]
+      "@components": [ "components" ],
+      "@layout": [ "layout" ],
+      "@pages": [ "pages" ],
+      "@hooks": [ "hooks" ],
+      "@api": [ "pages/api" ],
+      "@docs": [ "pages/docs" ]
     }
   }
 }
