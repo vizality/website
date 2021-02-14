@@ -28,5 +28,5 @@ module.exports = withPlugins(
     [ withDokz, { pageExtensions: [ 'js', 'jsx', 'md', 'mdx', 'ts', 'tsx' ] } ],
     // [ redirects ]
   ],
-  // nextConfiguration
+  nextConfiguration
 );
