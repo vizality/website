@@ -30,17 +30,13 @@ function runMiddleware (req, res, fn) {
   });
 }
 
-this.addons = {
-  plugins: {},
-  themes: {}
-};
 
 /**
  * Gets all of the addon repos currently active on the addon community organization.
  * @private
  */
-async function _getAddons () {
-  const _addons = {
+export const pie = (async function getAddons () {
+  const addons = {
     plugins: {},
     themes: {}
   };
@@ -52,68 +48,64 @@ async function _getAddons () {
     });
 
   // Filter out archived repos, as well as suggestions, applications, and guidelines repos
-  const addons = org?.data?.filter(d => !d.archive && d.name !== 'suggestions' && d.name !== 'applications' && d.name !== 'guidelines');
-  for (const addon of addons) {
+  const _addons = org?.data?.filter(d => !d.archive && d.name !== 'suggestions' && d.name !== 'applications' && d.name !== 'guidelines');
+  for (const addon of _addons) {
     let type;
     // Determine if it's a plugin or theme
-    const repo = await github.repos
+    const repoTopics = await github.repos
       .getAllTopics({
         owner: 'vizality-community',
         repo: addon.name
       });
-    if (repo?.data?.names?.includes('plugin')) type = 'plugins';
-    if (repo?.data?.names?.includes('theme')) type = 'themes';
-    const tags = repo?.data?.names?.filter(d => d !== 'plugin' && d !== 'theme' && d !== 'vizality');
-    const _addon = _addons[type][addon.name] = {};
+    if (repoTopics?.data?.names?.includes('plugin')) type = 'plugins';
+    if (repoTopics?.data?.names?.includes('theme')) type = 'themes';
+    const tags = repoTopics?.data?.names?.filter(d => d !== 'plugin' && d !== 'theme' && d !== 'vizality');
+    const _addon = addons[type][addon.name] = {};
     _addon.repo = addon.html_url;
     _addon.git = addon.clone_url;
     _addon.addonId = addon.name;
     _addon.tags = tags;
     // Get and set the manifest for the addon
-    const _manifest = await github.repos
+    const manifest = await github.repos
       .getContent({
         owner: 'vizality-community',
         repo: addon.name,
         path: 'manifest.json'
       });
 
-    const manifest = JSON.parse(Buffer.from(_manifest?.data?.content, 'base64').toString());
-    _addon.manifest = manifest;
+    const _manifest = JSON.parse(Buffer.from(manifest?.data?.content, 'base64').toString());
+    _addon.manifest = _manifest;
     _addon.sections = {};
-    if (manifest.sections?.readme) _addon.sections.readme = manifest.sections.readme;
-    if (manifest.sections?.license) _addon.sections.license = manifest.sections.license;
-    if (manifest.sections?.changelog) _addon.sections.changelog = manifest.sections.changelog;
+    if (_manifest.sections?.readme) _addon.sections.readme = _manifest.sections.readme;
+    if (_manifest.sections?.license) _addon.sections.license = _manifest.sections.license;
+    if (_manifest.sections?.changelog) _addon.sections.changelog = _manifest.sections.changelog;
 
     if (!_addon.sections.readme || !_addon.sections.license || addon.sections.changelog) {
-      const repo = await github.repos
+      const repoContent = await github.repos
         .getContent({
           owner: 'vizality-community',
           repo: addon.name
         });
       if (!_addon.sections.readme) {
-        const readme = repo?.data?.find(d => d.path === 'README' || d.path === 'README.md')?.download_url;
+        const readme = repoContent?.data?.find(d => d.path === 'README' || d.path === 'README.md')?.download_url;
         if (readme) _addon.sections.readme = readme;
       }
       if (!_addon.sections.license) {
-        const license = repo?.data?.find(d => d.path === 'LICENSE' || d.path === 'LICENSE.md')?.download_url;
+        const license = repoContent?.data?.find(d => d.path === 'LICENSE' || d.path === 'LICENSE.md')?.download_url;
         if (license) _addon.sections.license = license;
       }
       if (!_addon.sections.changelog) {
-        const changelog = repo?.data?.find(d => d.path === 'CHANGELOG' || d.path === 'CHANGELOG.md')?.download_url;
+        const changelog = repoContent?.data?.find(d => d.path === 'CHANGELOG' || d.path === 'CHANGELOG.md')?.download_url;
         if (changelog) _addon.sections.changelog = changelog;
       }
     }
   }
-  return _addons;
-}
-
-if (!this.addons) {
-  (async () => _getAddons())();
-}
+  return addons;
+}());
 
 export default async function handler (req, res) {
   // Run the middleware
   await runMiddleware(req, res, cors);
   // Rest of the API logic
-  res.json({ message: this.addons });
+  res.json({ message: await pie });
 }
