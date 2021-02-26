@@ -2,6 +2,15 @@
   "name": "vizality-website",
   "version": "1.0.0",
   "homepage": "https://vizality.com",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vizality/website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vizality/website/issues",
+    "email": "contact@vizality.com"
+  },
   "author": {
     "name": "dperolio",
     "email": "contact@vizality.com",
@@ -17,25 +26,25 @@
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
     "@octokit/auth-oauth-app": "^3.0.8",
-    "@octokit/rest": "^18.1.1",
+    "@octokit/rest": "^18.2.1",
     "classnames": "^2.2.6",
     "cors": "^2.8.5",
-    "dokz": "^2.0.5",
-    "framer-motion": "^3.2.2-rc.1",
-    "next": "^10.0.0",
+    "dokz": "^2.0.7",
+    "framer-motion": "^3.7.0",
+    "next": "^10.0.7",
     "next-compose": "0.0.2",
     "next-compose-plugins": "^2.2.1",
-    "next-seo": "^4.19.0",
+    "next-seo": "^4.20.0",
     "react": "17.0.1",
     "react-dom": "17.0.1"
   },
   "devDependencies": {
-    "eslint": "^7.18.0",
+    "eslint": "^7.20.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsdoc": "^31.3.3",
+    "eslint-plugin-jsdoc": "^32.2.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "sass": "^1.32.5"
+    "sass": "^1.32.8"
   }
 }
