@@ -22,7 +22,7 @@ No, the mobile versions of Discord work completely differently and are not compa
 No, Vizality is not directly compatible with other client mod plugins. Although someone could possibly make a plugin for it. We are planning on porting over or recreating popular plugins or plugins by request, however.
 
 ### Q3. How can I download and start using Vizality?
-Vizality is currently in the closed alpha testing stage, and only a handful of new users are getting invited weekly. To have a shot at an invite, stop in to our Discord server and say hey. Users active on the server showing an interest in the project are much more likely to receive an invite.
+Vizality is currently in the closed alpha testing stage, and only a trusted members of the Discord modding community are getting invites. To have a shot at an invite, stop in to our Discord server and say hello and show your interest in the project!
 
 ## Development
 
