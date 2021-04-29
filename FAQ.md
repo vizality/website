@@ -32,4 +32,4 @@ This seems to be a weird bug. Open Dev Tools Settings (F1), go to the Experiment
 ## Server
 
 ### Q5. How do I report another member for inappropriate behavior?
-Use the report command in the form of `!report <@user> <reason>`. If you want to include a screenshot, that's even more helpful. Just attach it to the command message.
+Use the report command in the form of `;report <@user> <reason>`. If you want to include a screenshot, that's even more helpful. Just attach it to the command message.
