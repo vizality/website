@@ -4,7 +4,7 @@ Below you will find some frequently asked questions about various aspects of the
 
 ## Table of Contents
 
-* [**Vizality**](#user-content-vizality)
+* [**Client Modification**](#user-content-client-modification)
   * [Will there ever be a mobile (Android/iOS) version of Vizality?](#user-content-q1)
   * [Is Vizality compatible with other client mod plugins?](#user-content-q2)
   * [How can I download and start using Vizality?](#user-content-q3)
@@ -13,7 +13,7 @@ Below you will find some frequently asked questions about various aspects of the
 * [**Server**](#user-content-server)
   * [How do I report another member for inappropriate behavior?](#user-content-q5)
 
-## Vizality
+## Client Modification
 
 ### Q1. Will there ever be a mobile (Android/iOS) version of Vizality?
 No, the mobile versions of Discord work completely differently and are not compatible with Vizality and no separate entity will be worked on.
