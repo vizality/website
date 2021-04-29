@@ -32,7 +32,7 @@ function runMiddleware (req, res, fn) {
 
 
 /**
- * Gets all of the addon repos currently active on the addon community organization.
+ * Gets all of the addon repos currently active on the addon community repo.
  * @private
  */
 export const pie = (async function getAddons () {
