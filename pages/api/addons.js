@@ -15,6 +15,33 @@ const cors = Cors({
   methods: [ 'GET', 'HEAD' ]
 });
 
+const Avatars = Object.freeze({
+  get DEFAULT_THEME_1 () { return 'https://cdn.vizality.com/assets/default-theme-1.png'; },
+  get DEFAULT_THEME_2 () { return 'https://cdn.vizality.com/assets/default-theme-2.png'; },
+  get DEFAULT_THEME_3 () { return 'https://cdn.vizality.com/assets/default-theme-3.png'; },
+  get DEFAULT_THEME_4 () { return 'https://cdn.vizality.com/assets/default-theme-4.png'; },
+  get DEFAULT_THEME_5 () { return 'https://cdn.vizality.com/assets/default-theme-5.png'; },
+  // ---
+  get DEFAULT_PLUGIN_1 () { return 'https://cdn.vizality.com/assets/default-plugin-1.png'; },
+  get DEFAULT_PLUGIN_2 () { return 'https://cdn.vizality.com/assets/default-plugin-2.png'; },
+  get DEFAULT_PLUGIN_3 () { return 'https://cdn.vizality.com/assets/default-plugin-3.png'; },
+  get DEFAULT_PLUGIN_4 () { return 'https://cdn.vizality.com/assets/default-plugin-4.png'; },
+  get DEFAULT_PLUGIN_5 () { return 'https://cdn.vizality.com/assets/default-plugin-5.png'; }
+});
+
+const toHash = text => {
+  let h1 = 0xdeadbeef ^ 0;
+  let h2 = 0x41c6ce57 ^ 0;
+  for (let i = 0, ch; i < text.length; i++) {
+    ch = text.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString();
+};
+
 /*
  * Helper method to wait for a middleware to execute before continuing
  * And to throw an error when an error happens in a middleware
@@ -84,12 +111,15 @@ export const pie = (async function getAddons () {
           repo: addon.name,
           path: 'assets'
         });
-      console.log(icon);
-      // const addonIdHash = toHash(_addon.addonId);
-      // manifest.icon = Avatars[`DEFAULT_${type.slice(0, -1).toUpperCase()}_${(addonIdHash % 5) + 1}`];
-    }
 
-    manifest.icon = 'pie';
+      const foundIcon = icon?.find(i => i?.data?.find(d => d.name === 'icon.png' || d.name === 'icon.jpg' || d.name === 'icon.jpeg'));
+      if (foundIcon) {
+        manifest.icon = foundIcon.download_url;
+      } else {
+        const addonIdHash = toHash(_addon.addonId);
+        manifest.icon = Avatars[`DEFAULT_${type.slice(0, -1).toUpperCase()}_${(addonIdHash % 5) + 1}`];
+      }
+    }
 
     const _manifest = JSON.parse(Buffer.from(manifest?.data?.content, 'base64').toString());
     _addon.manifest = _manifest;
