@@ -73,6 +73,24 @@ export const pie = (async function getAddons () {
         path: 'manifest.json'
       });
 
+    if (manifest.icon) {
+      if (manifest.icon.endsWith('.png') && manifest.icon.endsWith('.jpg') && manifest.icon.endsWith('.jpeg')) {
+        manifest.icon = `${_addon.repo}/${manifest.icon}`;
+      }
+    } else {
+      const icon = await github.repos
+        .getContent({
+          owner: 'vizality-community',
+          repo: addon.name,
+          path: 'assets'
+        });
+      console.log(icon);
+      // const addonIdHash = toHash(_addon.addonId);
+      // manifest.icon = Avatars[`DEFAULT_${type.slice(0, -1).toUpperCase()}_${(addonIdHash % 5) + 1}`];
+    }
+
+    manifest.icon = 'pie';
+
     const _manifest = JSON.parse(Buffer.from(manifest?.data?.content, 'base64').toString());
     _addon.manifest = _manifest;
     _addon.sections = {};
