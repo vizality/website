@@ -101,27 +101,42 @@ export const pie = (async function getAddons () {
         path: 'manifest.json'
       });
 
-    console.log(addon.full_name);
     const _manifest = JSON.parse(Buffer.from(manifest?.data?.content, 'base64').toString());
 
+    const validExtensions = [ '.png', '.jpg', '.jpeg' ];
+
+    const assets = await github.repos
+      .getContent({
+        owner: 'vizality-community',
+        repo: addon.name,
+        path: 'assets'
+      });
+
     if (_manifest.icon) {
-      if (_manifest.icon.endsWith('.png') || _manifest.icon.endsWith('.jpg') || _manifest.icon.endsWith('.jpeg')) {
+      if (validExtensions.some(ext => _manifest.icon.endsWith(ext))) {
         _manifest.icon = `${_addon.raw}/${_manifest.icon}`;
+      } else {
+        const addonIdHash = toHash(_addon.addonId);
+        _manifest.icon = Avatars[`DEFAULT_${type.slice(0, -1).toUpperCase()}_${(addonIdHash % 5) + 1}`];
       }
     } else {
-      const icon = await github.repos
-        .getContent({
-          owner: 'vizality-community',
-          repo: addon.name,
-          path: 'assets'
-        });
-
-      const foundIcon = icon?.data?.find(i => i.name === 'icon.png' || i.name === 'icon.jpg' || i.name === 'icon.jpeg');
+      const foundIcon = assets?.data?.find(a => a.name === 'icon.png' || a.name === 'icon.jpg' || a.name === 'icon.jpeg');
       if (foundIcon) {
         _manifest.icon = foundIcon.download_url;
       } else {
         const addonIdHash = toHash(_addon.addonId);
         _manifest.icon = Avatars[`DEFAULT_${type.slice(0, -1).toUpperCase()}_${(addonIdHash % 5) + 1}`];
+      }
+    }
+
+    if (_manifest.banner) {
+      if (validExtensions.some(ext => _manifest.banner.endsWith(ext))) {
+        _manifest.banner = `${_addon.raw}/${_manifest.banner}`;
+      }
+    } else {
+      const foundBanner = assets?.data?.find(a => a.name === 'banner.png' || a.name === 'banner.jpg' || a.name === 'banner.jpeg');
+      if (foundBanner) {
+        _manifest.banner = foundBanner.download_url;
       }
     }
 
