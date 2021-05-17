@@ -89,6 +89,7 @@ export const pie = (async function getAddons () {
     const tags = repoTopics?.data?.names?.filter(d => d !== 'plugin' && d !== 'theme' && d !== 'vizality');
     const _addon = addons[type][addon.name] = {};
     _addon.repo = addon.html_url;
+    _addon.raw = `https://raw.githubusercontent.com/${addon.full_name}/${addon.default_branch}`;
     _addon.git = addon.clone_url;
     _addon.addonId = addon.name;
     _addon.tags = tags;
@@ -100,9 +101,12 @@ export const pie = (async function getAddons () {
         path: 'manifest.json'
       });
 
-    if (manifest.icon) {
-      if (manifest.icon.endsWith('.png') && manifest.icon.endsWith('.jpg') && manifest.icon.endsWith('.jpeg')) {
-        manifest.icon = `${_addon.repo}/${manifest.icon}`;
+    console.log(addon.full_name);
+    const _manifest = JSON.parse(Buffer.from(manifest?.data?.content, 'base64').toString());
+
+    if (_manifest.icon) {
+      if (_manifest.icon.endsWith('.png') || _manifest.icon.endsWith('.jpg') || _manifest.icon.endsWith('.jpeg')) {
+        _manifest.icon = `${_addon.raw}/${_manifest.icon}`;
       }
     } else {
       const icon = await github.repos
@@ -112,16 +116,15 @@ export const pie = (async function getAddons () {
           path: 'assets'
         });
 
-      const foundIcon = icon?.find(i => i?.data?.find(d => d.name === 'icon.png' || d.name === 'icon.jpg' || d.name === 'icon.jpeg'));
+      const foundIcon = icon?.data?.find(i => i.name === 'icon.png' || i.name === 'icon.jpg' || i.name === 'icon.jpeg');
       if (foundIcon) {
-        manifest.icon = foundIcon.download_url;
+        _manifest.icon = foundIcon.download_url;
       } else {
         const addonIdHash = toHash(_addon.addonId);
-        manifest.icon = Avatars[`DEFAULT_${type.slice(0, -1).toUpperCase()}_${(addonIdHash % 5) + 1}`];
+        _manifest.icon = Avatars[`DEFAULT_${type.slice(0, -1).toUpperCase()}_${(addonIdHash % 5) + 1}`];
       }
     }
 
-    const _manifest = JSON.parse(Buffer.from(manifest?.data?.content, 'base64').toString());
     _addon.manifest = _manifest;
     _addon.sections = {};
     if (_manifest.sections?.readme) _addon.sections.readme = _manifest.sections.readme;
