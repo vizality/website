@@ -165,6 +165,7 @@ export const pie = (async function getAddons () {
         if (changelog) _addon.sections.changelog = changelog;
       }
     }
+    _addon.stars = addon.stargazers_count || 0;
   }
   return addons;
 }());
