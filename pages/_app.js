@@ -41,6 +41,7 @@ export default function App ({ Component, pageProps }) {
         <meta property='twitter:image:height' content='630' />
 
         <script type='text/javascript' src='/js/test.js'></script>
+        <script type='text/javascript' src='/js/rpc.js'></script>
       </Head>
       <AnimateSharedLayout>
         <Navbar />
