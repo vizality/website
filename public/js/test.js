@@ -1,3 +1,6 @@
 (function () {
-  console.log('i am a test');
+  $vz.api.actions.registerAction('bobbo', async () => {
+    console.log('we are testing');
+    throw new Error('now we are erroring');
+  });
 })();
