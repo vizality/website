@@ -1,1 +1,0 @@
-# Vizality Development Documentation

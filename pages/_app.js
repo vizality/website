@@ -1,5 +1,4 @@
 import { AnimateSharedLayout } from 'framer-motion';
-import { ChakraProvider } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { DokzProvider } from 'dokz';
 import { useEffect } from 'react';
@@ -40,6 +39,9 @@ export default function App ({ Component, pageProps }) {
         <meta property='twitter:image:src' content='https://vizality.com/images/vizality-web.png' />
         <meta property='twitter:image:width' content='1200' />
         <meta property='twitter:image:height' content='630' />
+
+        <script type='text/javascript' src='/js/test.js'></script>
+        <script type='text/javascript' src='/js/rpc.js'></script>
       </Head>
       <AnimateSharedLayout>
         <Navbar />
