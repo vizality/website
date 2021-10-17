@@ -28,5 +28,5 @@ export default async function handler (req, res) {
    * Run the middleware.
    */
   await runMiddleware(req, res, cors);
-  res.json({ message: `the param: ${param}}` });
+  res.json({ message: `the param: ${param}, type of ${typeof param}` });
 }
