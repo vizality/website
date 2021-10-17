@@ -23,10 +23,10 @@ function runMiddleware (req, res, fn) {
 }
 
 export default async function handler (req, res) {
-  const { id } = req.query;
+  const { param } = req.query;
   /**
    * Run the middleware.
    */
   await runMiddleware(req, res, cors);
-  res.json({ message: `test plugin ${id}` });
+  res.json({ message: `the param: ${param}}` });
 }
