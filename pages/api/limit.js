@@ -30,26 +30,26 @@ function runMiddleware (req, res, fn) {
   });
 }
 
-function getRelativeTime (current, previous) {
+function getRelativeTime (reset, current) {
   const msPerMinute = 60 * 1000;
   const msPerHour = msPerMinute * 60;
   const msPerDay = msPerHour * 24;
   const msPerMonth = msPerDay * 30;
   const msPerYear = msPerDay * 365;
-  const elapsed = current - previous;
+  const timeLeft = reset - current;
 
-  if (elapsed < msPerMinute) {
-    return `${Math.round(elapsed / 1000)} seconds`;
-  } else if (elapsed < msPerHour) {
-    return `${Math.round(elapsed / msPerMinute)} minutes`;
-  } else if (elapsed < msPerDay) {
-    return `${Math.round(elapsed / msPerHour)} hours`;
-  } else if (elapsed < msPerMonth) {
-    return `approximately ${Math.round(elapsed / msPerDay)} days`;
-  } else if (elapsed < msPerYear) {
-    return `approximately ${Math.round(elapsed / msPerMonth)} months`;
+  if (timeLeft < msPerMinute) {
+    return `${Math.round(timeLeft / 1000)} seconds`;
+  } else if (timeLeft < msPerHour) {
+    return `${Math.round(timeLeft / msPerMinute)} minutes`;
+  } else if (timeLeft < msPerDay) {
+    return `${Math.round(timeLeft / msPerHour)} hours`;
+  } else if (timeLeft < msPerMonth) {
+    return `approximately ${Math.round(timeLeft / msPerDay)} days`;
+  } else if (timeLeft < msPerYear) {
+    return `approximately ${Math.round(timeLeft / msPerMonth)} months`;
   }
-  return `approximately ${Math.round(elapsed / msPerYear)} years`;
+  return `approximately ${Math.round(timeLeft / msPerYear)} years`;
 }
 
 export default async function handler (req, res) {
@@ -59,6 +59,6 @@ export default async function handler (req, res) {
   await runMiddleware(req, res, cors);
   const limit = await github.rateLimit.get();
   const limitData = { ...limit?.data?.resources?.core };
-  limitData.relative_reset = getRelativeTime(new Date(), new Date(limit?.data?.resources?.core?.reset))
+  limitData.relative_reset = getRelativeTime(new Date(limit?.data?.resources?.core?.reset * 1000), new Date());
   res.json({ message: limitData });
 }
