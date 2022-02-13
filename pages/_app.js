@@ -1,4 +1,4 @@
-import { AnimateSharedLayout } from 'framer-motion';
+// import { AnimateSharedLayout } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Head from 'next/head';
@@ -41,10 +41,10 @@ export default function App ({ Component, pageProps }) {
 
         <script type='text/javascript' src='/js/rpc.js'></script>
       </Head>
-      <AnimateSharedLayout>
+      {/* <AnimateSharedLayout> */}
         <Navbar />
         <Component {...pageProps} />
-      </AnimateSharedLayout>
+      {/* </AnimateSharedLayout> */}
     </>
   );
 }

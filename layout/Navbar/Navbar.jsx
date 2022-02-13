@@ -1,4 +1,4 @@
-import { AnimateSharedLayout, AnimatePresence } from 'framer-motion';
+// import { AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -38,9 +38,9 @@ export default function Navbar () {
                   </a>
                 </Link>
               </div>
-              <AnimateSharedLayout>
+              {/* <AnimateSharedLayout> */}
                 <ul className='vz-nav-ul'>
-                  <AnimatePresence>
+                  {/* <AnimatePresence> */}
                     {routes.map(route => {
                       const isSelected = selected.startsWith(`/${route.toLowerCase()}`) || (selected === '/' && route === 'Home');
                       const r = route === 'Home' ? '/' : `/${route.toLowerCase()}`;
@@ -54,9 +54,9 @@ export default function Navbar () {
                         </Link>
                       );
                     })}
-                  </AnimatePresence>
+                  {/* </AnimatePresence> */}
                 </ul>
-              </AnimateSharedLayout>
+              {/* </AnimateSharedLayout> */}
             </div>
           </nav>
         )
