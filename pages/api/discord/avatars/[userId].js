@@ -44,7 +44,7 @@ export default async function handler (req, res) {
         } else {
           endpoint = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
         }
-        res.redirect(200, endpoint);
+        res.redirect(endpoint);
       } else {
         res.status(500).send({ error: 'User not found.' });
       }
