@@ -1,15 +1,4 @@
-import { InteractionCommandClient } from 'detritus-client';
 import Cors from 'cors';
-
-/**
- * Instantiate the interaction command client with various options.
- */
-const interactionClient = new InteractionCommandClient(process.env.BOT_TOKEN, {
-  useClusterClient: false,
-  gateway: {
-    intents: 'ALL'
-  }
-});
 
 /**
  * Initialize the cors middleware.
@@ -34,49 +23,10 @@ function runMiddleware (req, res, fn) {
 }
 
 export default async function handler (req, res) {
-  try {
-    const { guildId, userId } = req.query;
+  /**
+   * Run the middleware.
+   */
+  await runMiddleware(req, res, cors);
 
-    /**
-     * Get our authorized bot client.
-     */
-    const client = await interactionClient.run();
-
-    /**
-     * Retrieve the user's information via Discord's API.
-     */
-    const member = await client.rest.fetchGuildMember(guildId, userId);
-
-    /**
-     * Run the middleware.
-     */
-    await runMiddleware(req, res, cors);
-
-    if (guildId) {
-      if (userId) {
-        if (member) {
-          let endpoint;
-          let extension;
-          if (member.avatar) {
-            extension = member.avatar?.startsWith('a_') ? 'gif' : 'png';
-            endpoint = `https://cdn.discordapp.com/guilds/${guildId}/users/${userId}/avatars/${member.avatar}.${extension}?size=256`;
-          } else if (member.user?.avatar) {
-            extension = member.avatar?.startsWith('a_') ? 'gif' : 'png';
-            endpoint = `https://cdn.discordapp.com/avatars/${userId}/${member.user.avatar}.${extension}?size=256`;
-          } else {
-            endpoint = `https://cdn.discordapp.com/embed/avatars/${member.user.discriminator % 5}.png`;
-          }
-          res.redirect(307, endpoint);
-        } else {
-          res.status(500).send({ error: 'Guild member not found.' });
-        }
-      } else {
-        res.status(500).send({ error: 'User ID is required.' });
-      }
-    } else {
-      res.status(500).send({ error: 'Guild ID is required.' });
-    }
-  } catch (err) {
-    res.status(500).json({ error: 'Something went wrong retrieving the data.' });
-  }
+  res.status(200).json({ message: 'yes' });
 }
