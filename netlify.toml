@@ -3,7 +3,6 @@
   publish = ".next"
 
 [[redirects]]
-  from = "/api/*"
-  to = "https://api.vizality.com/*"
+  from = "https://vizality.com/api/*"
+  to = "https://api.vizality.com/:splat"
   status = 200
-  force = true
