@@ -1,4 +1,15 @@
+import { InteractionCommandClient } from 'detritus-client';
 import Cors from 'cors';
+
+/**
+ * Instantiate the interaction command client with various options.
+ */
+const interactionClient = new InteractionCommandClient(process.env.BOT_TOKEN, {
+  useClusterClient: false,
+  gateway: {
+    intents: 'ALL'
+  }
+});
 
 /**
  * Initialize the cors middleware.
@@ -23,12 +34,41 @@ function runMiddleware (req, res, fn) {
 }
 
 export default async function handler (req, res) {
-  const { userId } = req.query;
+  try {
+    const { userId } = req.query;
 
-  /**
-   * Run the middleware.
-   */
-  await runMiddleware(req, res, cors);
+    /**
+     * Get our authorized bot client.
+     */
+    const client = await interactionClient.run();
 
-  res.status(200).json({ message: userId });
+    /**
+     * Retrieve the user's information via Discord's API.
+     */
+    const user = await client.rest.fetchUser(userId);
+
+    /**
+     * Run the middleware.
+     */
+    await runMiddleware(req, res, cors);
+
+    if (userId) {
+      if (user) {
+        let endpoint;
+        if (user.avatar) {
+          const extension = user.avatar.startsWith('a_') ? 'gif' : 'png';
+          endpoint = `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`;
+        } else {
+          endpoint = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
+        }
+        res.redirect(307, endpoint);
+      } else {
+        res.status(500).send({ error: 'User not found.' });
+      }
+    } else {
+      res.status(500).send({ error: 'User ID is required.' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Something went wrong retrieving the data.' });
+  }
 }

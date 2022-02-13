@@ -1,6 +1,16 @@
+import { Constants as SocketConstants } from 'detritus-client-socket';
+import { InteractionCommandClient } from 'detritus-client';
 import Cors from 'cors';
 
-import discord from '#discord';
+/**
+ * Instantiate the interaction command client with various options.
+ */
+const interactionClient = new InteractionCommandClient(process.env.BOT_TOKEN, {
+  useClusterClient: false,
+  gateway: {
+    intents: 'ALL'
+  }
+});
 
 /**
  * Initialize the cors middleware.
@@ -29,9 +39,14 @@ export default async function handler (req, res) {
     const { userId } = req.query;
 
     /**
+     * Get our authorized bot client.
+     */
+    const client = await interactionClient.run();
+
+    /**
      * Retrieve the user's information via Discord's API.
      */
-    const user = await (await discord).rest.fetchUser(userId);
+    const user = await client.rest.fetchUser(userId);
 
     /**
      * Run the middleware.
