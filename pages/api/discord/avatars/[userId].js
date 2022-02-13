@@ -1,6 +1,25 @@
+import { Constants as SocketConstants } from 'detritus-client-socket';
+import { InteractionCommandClient } from 'detritus-client';
 import Cors from 'cors';
 
-import discord from '#discord';
+/**
+ * Instantiate the interaction command client with various options.
+ */
+const interactionClient = new InteractionCommandClient(process.env.BOT_TOKEN, {
+  useClusterClient: false,
+  gateway: {
+    intents: [
+      SocketConstants.GatewayIntents.GUILDS,
+      SocketConstants.GatewayIntents.GUILD_MEMBERS,
+      SocketConstants.GatewayIntents.GUILD_MESSAGES,
+      SocketConstants.GatewayIntents.GUILD_PRESENCES,
+      SocketConstants.GatewayIntents.GUILD_MESSAGE_REACTIONS,
+      SocketConstants.GatewayIntents.DIRECT_MESSAGES,
+      SocketConstants.GatewayIntents.DIRECT_MESSAGE_REACTIONS,
+      SocketConstants.GatewayIntents.GUILD_VOICE_STATES
+    ]
+  }
+});
 
 /**
  * Initialize the cors middleware.
@@ -25,23 +44,33 @@ function runMiddleware (req, res, fn) {
 }
 
 export default async function handler (req, res) {
-  const { userId } = req.query;
+  try {
+    const { userId } = req.query;
 
-  const user = await (await discord).rest.fetchUser(userId);
-  const extension = user?.avatar?.startsWith('a_') ? 'gif' : 'png';
-
-  /**
-   * Run the middleware.
-   */
-  await runMiddleware(req, res, cors);
-
-  if (user) {
-    if (user.avatar) {
-      res.redirect(307, `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`);
-    } else {
-      res.redirect(307, `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`);
+    if (!userId) {
+      res.status(500).send({ error: 'User ID is required.' });
     }
-  } else {
-    res.status(500).send({ error: 'User not found.' });
+
+    const client = await interactionClient.run();
+
+    const user = await client.rest.fetchUser(userId);
+    const extension = user?.avatar?.startsWith('a_') ? 'gif' : 'png';
+
+    /**
+     * Run the middleware.
+     */
+    await runMiddleware(req, res, cors);
+
+    if (user) {
+      if (user.avatar) {
+        res.redirect(307, `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`);
+      } else {
+        res.redirect(307, `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`);
+      }
+    } else {
+      res.status(500).send({ error: 'User not found.' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Something went wrong retrieving the data.' });
   }
 }
