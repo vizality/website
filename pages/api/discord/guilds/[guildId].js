@@ -1,14 +1,14 @@
 import Cors from 'cors';
 
 /**
- * Initializing the cors middleware.
+ * Initialize the cors middleware.
  */
 const cors = Cors({
   methods: [ 'GET', 'HEAD' ]
 });
 
 /**
- * Helper method to wait for a middleware to execute before continuing
+ * Helper method to wait for a middleware to execute before continuing.
  * And to throw an error when an error happens in a middleware.
  */
 function runMiddleware (req, res, fn) {
@@ -23,12 +23,10 @@ function runMiddleware (req, res, fn) {
 }
 
 export default async function handler (req, res) {
-  const { guildId } = req.query;
-
   /**
    * Run the middleware.
    */
   await runMiddleware(req, res, cors);
 
-  res.status(200).json({ message: guildId });
+  res.status(200).json({ message: 'yes' });
 }

@@ -1,6 +1,25 @@
+import { Constants as SocketConstants } from 'detritus-client-socket';
+import { InteractionCommandClient } from 'detritus-client';
 import Cors from 'cors';
 
-import discord from '#discord';
+/**
+ * Instantiate the interaction command client with various options.
+ */
+const interactionClient = new InteractionCommandClient(process.env.BOT_TOKEN, {
+  useClusterClient: false,
+  gateway: {
+    intents: [
+      SocketConstants.GatewayIntents.GUILDS,
+      SocketConstants.GatewayIntents.GUILD_MEMBERS,
+      SocketConstants.GatewayIntents.GUILD_MESSAGES,
+      SocketConstants.GatewayIntents.GUILD_PRESENCES,
+      SocketConstants.GatewayIntents.GUILD_MESSAGE_REACTIONS,
+      SocketConstants.GatewayIntents.DIRECT_MESSAGES,
+      SocketConstants.GatewayIntents.DIRECT_MESSAGE_REACTIONS,
+      SocketConstants.GatewayIntents.GUILD_VOICE_STATES
+    ]
+  }
+});
 
 /**
  * Initialize the cors middleware.
@@ -25,23 +44,41 @@ function runMiddleware (req, res, fn) {
 }
 
 export default async function handler (req, res) {
-  const { userId } = req.query;
+  try {
+    const { userId } = req.query;
 
-  const user = await (await discord).rest.fetchUser(userId);
-  const extension = user?.banner?.startsWith('a_') ? 'gif' : 'png';
+    /**
+     * Get our authorized bot client.
+     */
+    const client = await interactionClient.run();
 
-  /**
-   * Run the middleware.
-   */
-  await runMiddleware(req, res, cors);
+    /**
+     * Retrieve the user's information via Discord's API.
+     */
+    const user = await client.rest.fetchUser(userId);
 
-  if (user) {
-    if (user.banner) {
-      res.redirect(307, `https://cdn.discordapp.com/banners/${userId}/${user.banner}.${extension}?size=600`);
+    /**
+     * Run the middleware.
+     */
+    await runMiddleware(req, res, cors);
+
+    if (userId) {
+      if (user) {
+        let endpoint;
+        if (user.banner) {
+          const extension = user?.banner?.startsWith('a_') ? 'gif' : 'png';
+          endpoint = `https://cdn.discordapp.com/banners/${userId}/${user.banner}.${extension}?size=600`;
+        } else {
+          endpoint = `https://singlecolorimage.com/get/${user.bannerColor.substring(1)}/600x120`;
+        }
+        res.redirect(307, endpoint);
+      } else {
+        res.status(500).send({ error: 'User not found.' });
+      }
     } else {
-      res.redirect(307, `https://singlecolorimage.com/get/${user.bannerColor.substring(1)}/600x120`);
+      res.status(500).send({ error: 'User ID is required.' });
     }
-  } else {
-    res.status(500).send({ error: 'User not found.' });
+  } catch (err) {
+    res.status(500).json({ error: 'Something went wrong retrieving the data.' });
   }
 }

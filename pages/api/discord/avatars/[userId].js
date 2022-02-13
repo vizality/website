@@ -47,28 +47,36 @@ export default async function handler (req, res) {
   try {
     const { userId } = req.query;
 
-    if (!userId) {
-      res.status(500).send({ error: 'User ID is required.' });
-    }
-
+    /**
+     * Get our authorized bot client.
+     */
     const client = await interactionClient.run();
 
+    /**
+     * Retrieve the user's information via Discord's API.
+     */
     const user = await client.rest.fetchUser(userId);
-    const extension = user?.avatar?.startsWith('a_') ? 'gif' : 'png';
 
     /**
      * Run the middleware.
      */
     await runMiddleware(req, res, cors);
 
-    if (user) {
-      if (user.avatar) {
-        res.redirect(307, `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`);
+    if (userId) {
+      if (user) {
+        let endpoint;
+        if (user.avatar) {
+          const extension = user.avatar.startsWith('a_') ? 'gif' : 'png';
+          endpoint = `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`;
+        } else {
+          endpoint = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
+        }
+        res.redirect(307, endpoint);
       } else {
-        res.redirect(307, `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`);
+        res.status(500).send({ error: 'User not found.' });
       }
     } else {
-      res.status(500).send({ error: 'User not found.' });
+      res.status(500).send({ error: 'User ID is required.' });
     }
   } catch (err) {
     res.status(500).json({ error: 'Something went wrong retrieving the data.' });
