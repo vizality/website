@@ -1,8 +1,3 @@
 [build]
   command = "npm run build"
   publish = ".next"
-
-[[redirects]]
-  from = "https://vizality.com/api/*"
-  to = "https://api.vizality.com/:splat"
-  status = 200
