@@ -23,7 +23,7 @@ function runMiddleware (req, res, fn) {
 }
 
 export default async function handler (req, res) {
-  const { userId } = req.params;
+  const { userId } = req.query;
 
   /**
    * Run the middleware.
