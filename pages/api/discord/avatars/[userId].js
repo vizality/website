@@ -23,14 +23,17 @@ function runMiddleware (req, res, fn) {
 }
 
 export default async function handler (req, res) {
-  const { param } = req.query;
+  const { userId } = req.query;
+  const { hash } = req.query;
+
   /**
    * Run the middleware.
    */
   await runMiddleware(req, res, cors);
-  res.json({
+  res.status(200).json({
     data: {
-      param
+      userId,
+      hash
     }
   });
 }

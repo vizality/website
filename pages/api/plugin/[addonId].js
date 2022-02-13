@@ -23,9 +23,15 @@ function runMiddleware (req, res, fn) {
 }
 
 export default async function handler (req, res) {
+  const { addonId } = req.query;
+
   /**
    * Run the middleware.
    */
   await runMiddleware(req, res, cors);
-  res.status(200).json({ message: 'test plugin' });
+  res.status(200).json({
+    data: {
+      addonId
+    }
+  });
 }

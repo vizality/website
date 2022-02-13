@@ -7,6 +7,14 @@
       },
       "dest": "/api/$1",
       "continue": true
+    },
+    {
+      "src": "/api/discord/(.*)",
+      "headers": {
+        "cache-control": "s-maxage=31536000"
+      },
+      "dest": "/api/discord/$1",
+      "continue": true
     }
   ]
 }
