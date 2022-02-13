@@ -1,5 +1,4 @@
 import { useEffect, useRef, memo } from 'react';
-import { motion } from 'framer-motion';
 
 export default memo(() => {
   const canvasRef = useRef(null);
@@ -91,12 +90,10 @@ export default memo(() => {
   }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+    <div
       className='vz-canvas-wrapper'
     >
       <canvas className='vz-canvas' ref={canvasRef} />
-    </motion.div>
+    </div>
   );
 });

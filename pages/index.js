@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 import { Canvas, Icon } from '@components';
 
 export default function Home () {
@@ -19,18 +17,12 @@ export default function Home () {
           </span>
         </motion.div>
         <div className='vz-coming-soon'>
-          <motion.h1
-            initial={{ opacity: 0, y: 200 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+          <h1
             className='vz-coming-soon-logo'
           >
             <Icon size='100%' name='VizalityVZ' />
-          </motion.h1>
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+          </h1>
+          <div
             className='vz-coming-soon-social-items'>
             <div className='vz-coming-soon-social-item'>
               <a href='https://invite.vizality.com'>
@@ -50,7 +42,7 @@ export default function Home () {
                 <Icon name='Twitter' size='36' />
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
       </main>
     </>

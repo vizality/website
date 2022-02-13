@@ -1,11 +1,4 @@
-import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
-
-const spring = {
-  type: 'spring',
-  stiffness: 500,
-  damping: 30
-};
 
 export default forwardRef(({ onClick, href, isSelected, route }, ref) => {
   return (
@@ -19,11 +12,8 @@ export default forwardRef(({ onClick, href, isSelected, route }, ref) => {
         {route}
       </a>
       {isSelected &&
-        <motion.div
-          layoutId='nav-indicator'
+        <div
           className='vz-nav-li-active-indicator'
-          initial={false}
-          transition={spring}
         />
       }
     </li>
