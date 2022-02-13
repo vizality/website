@@ -1,6 +1,10 @@
+import { InteractionCommandClient } from 'detritus-client';
 import Cors from 'cors';
 
-import discord from '#discord';
+/**
+ * Instantiate the interaction command client with various options.
+ */
+const interactionClient = new InteractionCommandClient(process.env.BOT_TOKEN, { useClusterClient: false });
 
 /**
  * Initialize the cors middleware.
@@ -27,8 +31,9 @@ function runMiddleware (req, res, fn) {
 export default async function handler (req, res) {
   const { userId } = req.query;
 
-  const user = await (await discord).rest.fetchUser(userId);
-  const extension = user?.avatar?.startsWith('a_') ? 'gif' : 'png';
+  const client = await interactionClient.run();
+  const user = await client.rest.fetchUser(userId);
+  const extension = user?.banner?.startsWith('a_') ? 'gif' : 'png';
 
   /**
    * Run the middleware.
@@ -36,12 +41,12 @@ export default async function handler (req, res) {
   await runMiddleware(req, res, cors);
 
   if (user) {
-    if (user.avatar) {
-      res.redirect(307, `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`);
+    if (user.banner) {
+      res.redirect(307, `https://cdn.discordapp.com/banners/${userId}/${user.banner}.${extension}?size=600`);
     } else {
-      res.redirect(307, `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`);
+      res.redirect(307, `https://singlecolorimage.com/get/${user.bannerColor.substring(1)}/600x120`);
     }
   } else {
-    res.status(500).send({ error: 'User not found.' });
+    res.status(500).send({ error: 'User could not be found.' });
   }
 }

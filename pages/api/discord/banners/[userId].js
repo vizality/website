@@ -28,7 +28,7 @@ export default async function handler (req, res) {
   const { userId } = req.query;
 
   const user = await (await discord).rest.fetchUser(userId);
-  const extension = user?.avatar?.startsWith('a_') ? 'gif' : 'png';
+  const extension = user?.banner?.startsWith('a_') ? 'gif' : 'png';
 
   /**
    * Run the middleware.
@@ -36,10 +36,10 @@ export default async function handler (req, res) {
   await runMiddleware(req, res, cors);
 
   if (user) {
-    if (user.avatar) {
-      res.redirect(307, `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`);
+    if (user.banner) {
+      res.redirect(307, `https://cdn.discordapp.com/banners/${userId}/${user.banner}.${extension}?size=600`);
     } else {
-      res.redirect(307, `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`);
+      res.redirect(307, `https://singlecolorimage.com/get/${user.bannerColor.substring(1)}/600x120`);
     }
   } else {
     res.status(500).send({ error: 'User not found.' });
