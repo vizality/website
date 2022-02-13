@@ -21,6 +21,9 @@
     "build": "next build",
     "start": "next start"
   },
+  "imports": {
+    "#discord": "./pages/api/discord/index.js"
+  },
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -28,6 +31,7 @@
     "@octokit/rest": "^18.12.0",
     "classnames": "^2.3.1",
     "cors": "^2.8.5",
+    "detritus-client": "^0.16.3",
     "framer-motion": "^6.2.6",
     "next": "^12.0.10",
     "next-seo": "^5.1.0",

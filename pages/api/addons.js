@@ -62,7 +62,7 @@ function runMiddleware (req, res, fn) {
  * Gets all of the addon repos currently active on the addon community repo.
  * @private
  */
-export const pie = (async function getAddons () {
+export const generateAddonsList = async () => {
   const addons = {
     plugins: {},
     themes: {}
@@ -168,11 +168,16 @@ export const pie = (async function getAddons () {
     _addon.stars = addon.stargazers_count || 0;
   }
   return addons;
-}());
+};
 
 export default async function handler (req, res) {
-  // Run the middleware
+  /**
+   * Run the middleware.
+   */
   await runMiddleware(req, res, cors);
-  // Rest of the API logic
-  res.json({ message: await pie });
+  res.status(200).json({
+    data: [
+      (await generateAddonsList())
+    ]
+  });
 }
