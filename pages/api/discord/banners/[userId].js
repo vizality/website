@@ -8,7 +8,16 @@ import Cors from 'cors';
 const interactionClient = new InteractionCommandClient(process.env.BOT_TOKEN, {
   useClusterClient: false,
   gateway: {
-    intents: 'ALL'
+    intents: [
+      SocketConstants.GatewayIntents.GUILDS,
+      SocketConstants.GatewayIntents.GUILD_MEMBERS,
+      SocketConstants.GatewayIntents.GUILD_MESSAGES,
+      SocketConstants.GatewayIntents.GUILD_PRESENCES,
+      SocketConstants.GatewayIntents.GUILD_MESSAGE_REACTIONS,
+      SocketConstants.GatewayIntents.DIRECT_MESSAGES,
+      SocketConstants.GatewayIntents.DIRECT_MESSAGE_REACTIONS,
+      SocketConstants.GatewayIntents.GUILD_VOICE_STATES
+    ]
   }
 });
 
@@ -55,14 +64,14 @@ export default async function handler (req, res) {
 
     if (userId) {
       if (user) {
-        let endpoint;
+        let banner;
         if (user.banner) {
           const extension = user?.banner?.startsWith('a_') ? 'gif' : 'png';
-          endpoint = `https://cdn.discordapp.com/banners/${userId}/${user.banner}.${extension}?size=600`;
+          banner = `https://cdn.discordapp.com/banners/${userId}/${user.banner}.${extension}?size=600`;
         } else {
-          endpoint = `https://singlecolorimage.com/get/${user.bannerColor.substring(1)}/600x120`;
+          banner = `https://singlecolorimage.com/get/${user.bannerColor.substring(1)}/600x120`;
         }
-        res.redirect(307, endpoint);
+        res.status(200).json({ url: banner });
       } else {
         res.status(500).send({ error: 'User not found.' });
       }

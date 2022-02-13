@@ -1,3 +1,4 @@
+import { Constants as SocketConstants } from 'detritus-client-socket';
 import { InteractionCommandClient } from 'detritus-client';
 import Cors from 'cors';
 
@@ -7,7 +8,16 @@ import Cors from 'cors';
 const interactionClient = new InteractionCommandClient(process.env.BOT_TOKEN, {
   useClusterClient: false,
   gateway: {
-    intents: 'ALL'
+    intents: [
+      SocketConstants.GatewayIntents.GUILDS,
+      SocketConstants.GatewayIntents.GUILD_MEMBERS,
+      SocketConstants.GatewayIntents.GUILD_MESSAGES,
+      SocketConstants.GatewayIntents.GUILD_PRESENCES,
+      SocketConstants.GatewayIntents.GUILD_MESSAGE_REACTIONS,
+      SocketConstants.GatewayIntents.DIRECT_MESSAGES,
+      SocketConstants.GatewayIntents.DIRECT_MESSAGE_REACTIONS,
+      SocketConstants.GatewayIntents.GUILD_VOICE_STATES
+    ]
   }
 });
 
@@ -54,14 +64,14 @@ export default async function handler (req, res) {
 
     if (userId) {
       if (user) {
-        let endpoint;
+        let avatar;
         if (user.avatar) {
           const extension = user.avatar.startsWith('a_') ? 'gif' : 'png';
-          endpoint = `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`;
+          avatar = `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`;
         } else {
-          endpoint = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
+          avatar = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
         }
-        res.redirect(307, endpoint);
+        res.status(200).json({ url: avatar });
       } else {
         res.status(500).send({ error: 'User not found.' });
       }
