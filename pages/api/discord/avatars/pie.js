@@ -23,12 +23,10 @@ function runMiddleware (req, res, fn) {
 }
 
 export default async function handler (req, res) {
-  const { userId } = req.params;
-
   /**
    * Run the middleware.
    */
   await runMiddleware(req, res, cors);
 
-  res.status(200).json({ message: userId });
+  res.status(200).json({ message: 'yes' });
 }
