@@ -1,5 +1,6 @@
 import Cors from 'cors';
 
+import { fetchUser } from '#discord';
 
 /**
  * Initialize the cors middleware.
@@ -28,30 +29,22 @@ export default async function handler (req, res) {
     const { userId } = req.query;
 
     /**
-     * Get our authorized bot client.
-     */
-    const client = await interactionClient.run();
-
-    /**
-     * Retrieve the user's information via Discord's API.
-     */
-    const user = await client.rest.fetchUser(userId);
-
-    /**
      * Run the middleware.
      */
     await runMiddleware(req, res, cors);
 
     if (userId) {
+      const user = await fetchUser(userId);
+
       if (user) {
-        let avatar;
+        let endpoint;
         if (user.avatar) {
           const extension = user.avatar.startsWith('a_') ? 'gif' : 'png';
-          avatar = `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`;
+          endpoint = `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`;
         } else {
-          avatar = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
+          endpoint = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
         }
-        res.status(200).json({ url: avatar });
+        res.redirect('/');
       } else {
         res.status(500).send({ error: 'User not found.' });
       }
