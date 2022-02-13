@@ -1,8 +1,0 @@
-@function map-merge-all($maps...) {
-  $collection: ();
-
-  @each $map in $maps {
-    $collection: non-destructive-map-merge($collection, $map);
-  }
-  @return $collection;
-}

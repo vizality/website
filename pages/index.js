@@ -5,17 +5,14 @@ export default function Home () {
     <>
       <Canvas />
       <main className='vz-app-wrapper'>
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
+        <div
           className='vz-coming-soon-banner'
         >
           Coming Soon...
           <span className='vz-coming-soon-info'>
             Join our Discord server to get all of the latest community news, updates, previews, and become an alpha tester!
           </span>
-        </motion.div>
+        </div>
         <div className='vz-coming-soon'>
           <h1
             className='vz-coming-soon-logo'
