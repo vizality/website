@@ -1,0 +1,9 @@
+// Shorthand for `color` CSS custom properties
+// @todo: Needs improved to work with fallback values
+
+@function color($propertyName, $alpha: null) {
+  @if $alpha {
+    @return unquote('hsl(var(--vz-color-#{$propertyName}) / #{$alpha})');
+  }
+  @return unquote('hsl(var(--vz-color-#{$propertyName}))');
+}
