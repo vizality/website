@@ -1,6 +1,4 @@
-const nextConfiguration = {
+module.exports = {
   target: 'serverless'
 };
-
-module.exports = nextConfiguration;
 
