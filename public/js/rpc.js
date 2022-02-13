@@ -4,6 +4,7 @@
  * @author Bowser65, modified by AAGaming00 and dperolio
  * @license MIT
  */
+
 class VizalityRPC {
   get ws () {
     return this._ws;
