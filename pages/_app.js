@@ -1,6 +1,5 @@
 import { AnimateSharedLayout } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { DokzProvider } from 'dokz';
 import { useEffect } from 'react';
 import Head from 'next/head';
 
@@ -45,27 +44,7 @@ export default function App ({ Component, pageProps }) {
       </Head>
       <AnimateSharedLayout>
         <Navbar />
-        {pathname.startsWith('/docs') &&
-          <DokzProvider
-            docsRootPath='pages/docs'
-            githubUrl='vizality/website'
-            branch='master'
-          >
-            <Component {...pageProps} />
-          </DokzProvider>
-        }
-        {pathname.startsWith('/learn') &&
-          <DokzProvider
-            docsRootPath='pages/learn'
-            githubUrl='vizality/website'
-            branch='master'
-          >
-            <Component {...pageProps} />
-          </DokzProvider>
-        }
-        {!pathname.startsWith('/docs') && !pathname.startsWith('/learn') &&
-          <Component {...pageProps} />
-        }
+        <Component {...pageProps} />
       </AnimateSharedLayout>
     </>
   );

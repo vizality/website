@@ -22,29 +22,25 @@
     "start": "next start"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.6.9",
-    "@emotion/react": "^11.4.1",
-    "@emotion/styled": "^11.3.0",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@octokit/auth-oauth-app": "^4.3.0",
     "@octokit/rest": "^18.12.0",
     "classnames": "^2.3.1",
     "cors": "^2.8.5",
-    "dokz": "^2.0.9",
-    "framer-motion": "^4.1.17",
-    "next": "^11.1.2",
-    "next-compose": "0.0.2",
-    "next-compose-plugins": "^2.2.1",
-    "next-seo": "^4.28.1",
+    "framer-motion": "^6.2.6",
+    "next": "^12.0.10",
+    "next-seo": "^5.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "eslint": "^8.0.0",
-    "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-jsdoc": "^36.1.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.26.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "sass": "^1.42.1"
+    "eslint": "^8.9.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsdoc": "^37.9.1",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "sass": "^1.49.7"
   }
 }
