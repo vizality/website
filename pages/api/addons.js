@@ -175,9 +175,14 @@ export default async function handler (req, res) {
    * Run the middleware.
    */
   await runMiddleware(req, res, cors);
+
+  res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
+
+  const addons = await generateAddonsList();
+
   res.status(200).json({
     data: [
-      (await generateAddonsList())
+      ...addons
     ]
   });
 }

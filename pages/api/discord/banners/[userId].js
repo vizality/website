@@ -50,7 +50,10 @@ export default async function handler (req, res) {
         const response = await fetch(endpoint);
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
+
         res.setHeader('Content-Type', `image/${extension}`);
+        res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
+
         res.send(buffer);
       } else {
         res.status(500).send({ error: 'User not found.' });
