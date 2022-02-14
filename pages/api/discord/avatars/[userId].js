@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 import Cors from 'cors';
 
 import { fetchUser } from '#discord';
@@ -35,16 +36,21 @@ export default async function handler (req, res) {
 
     if (userId) {
       const user = await fetchUser(userId);
-
+      let extension = 'png';
       if (user) {
         let endpoint;
         if (user.avatar) {
-          const extension = user.avatar.startsWith('a_') ? 'gif' : 'png';
+          extension = user.avatar.startsWith('a_') && 'gif';
           endpoint = `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`;
         } else {
-          endpoint = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
+          endpoint = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.${extension}`;
         }
-        res.redirect(endpoint);
+
+        const response = await fetch(endpoint);
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        res.setHeader('Content-Type', `image/${extension}`);
+        res.send(buffer);
       } else {
         res.status(500).send({ error: 'User not found.' });
       }
