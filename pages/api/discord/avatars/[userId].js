@@ -27,12 +27,12 @@ function runMiddleware (req, res, fn) {
 
 export default async function handler (req, res) {
   try {
-    const { userId } = req.query;
-
-    /**
-     * Run the middleware.
-     */
+  /**
+   * Run the middleware.
+   */
     await runMiddleware(req, res, cors);
+
+    const { userId } = req.query;
 
     if (userId) {
       const user = await fetchUser(userId);
@@ -50,6 +50,7 @@ export default async function handler (req, res) {
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
         res.setHeader('Content-Type', `image/${extension}`);
+
         res.send(buffer);
       } else {
         res.status(500).send({ error: 'User not found.' });
