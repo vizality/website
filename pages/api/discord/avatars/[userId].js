@@ -40,7 +40,7 @@ export default async function handler (req, res) {
       if (user) {
         let endpoint;
         if (user.avatar) {
-          extension = user.avatar.startsWith('a_') && 'gif';
+          extension = user.avatar.startsWith('a_') ? 'gif' : 'png';
           endpoint = `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`;
         } else {
           endpoint = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.${extension}`;

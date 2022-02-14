@@ -35,15 +35,23 @@ export default async function handler (req, res) {
 
     if (userId) {
       const user = await fetchUser(userId);
+      let extension = 'png';
       if (user) {
+        console.log('user');
         let endpoint;
         if (user.banner) {
-          const extension = user?.banner?.startsWith('a_') ? 'gif' : 'png';
+          console.log('banner');
+          extension = user.banner.startsWith('a_') ? 'gif' : 'png';
           endpoint = `https://cdn.discordapp.com/banners/${userId}/${user.banner}.${extension}?size=600`;
-        } else {
-          endpoint = `https://singlecolorimage.com/get/${user.bannerColor.substring(1)}/600x120`;
+        } else if (user.banner_color) {
+          endpoint = `https://singlecolorimage.com/get/${user.banner_color.substring(1)}/600x120`;
         }
-        res.redirect(endpoint);
+
+        const response = await fetch(endpoint);
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        res.setHeader('Content-Type', `image/${extension}`);
+        res.send(buffer);
       } else {
         res.status(500).send({ error: 'User not found.' });
       }
