@@ -19,6 +19,9 @@
     "browser": true,
     "node": true
   },
+  "extends": [
+    "plugin:@next/next/recommended"
+  ],
   "rules": {
     // Next.js specific, since we don't need to import React.
     "react/react-in-jsx-scope": "off",
