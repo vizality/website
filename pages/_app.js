@@ -7,7 +7,7 @@ import { Navbar } from '@layout';
 import '@styles/main.scss';
 
 export default function App ({ Component, pageProps }) {
-  const { pathname } = useRouter();
+  // const { pathname } = useRouter();
   useEffect(() => {
     document.documentElement.setAttribute('vz-mode', 'dark');
   }, []);
