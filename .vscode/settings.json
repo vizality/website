@@ -1,0 +1,90 @@
+{
+    "editor.tabSize": 2,
+    "editor.wordWrap": "on",
+    "todo-tree.regex.regex" : "((//|#|<!--|;|\\*)\\s*($TAGS)|^\\s*- \\[ \\])",
+    "todo-tree.general.tags": [
+        "@bug",
+        "@deprecated",
+        "@docs",
+        "@experimental",
+        "@i18n",
+        "@note",
+        "@test",
+        "@todo",
+        "@warning"
+    ],
+    "todo-tree.highlights.defaultHighlight": {
+        "gutterIcon": true
+    },
+    "todo-tree.highlights.customHighlight": {
+        "@bug": {
+            "icon": "bug",
+            "foreground": "#e87000",
+            "background": "#e87000",
+            "opacity": 0
+        },
+        "@deprecated": {
+            "icon": "hubot",
+            "foreground": "#dad24e",
+            "background": "#dad24e",
+            "opacity": 0
+        },
+        "@docs": {
+            "icon": "book",
+            "foreground": "#00d5ff",
+            "background": "#00d5ff",
+            "opacity": 0
+        },
+        "@experimental": {
+            "icon": "beaker",
+            "foreground": "#456aff",
+            "background": "#456aff",
+            "opacity": 0
+        },
+        "@i18n": {
+            "icon": "globe",
+            "foreground": "#46d6af",
+            "background": "#46d6af",
+            "opacity": 0
+        },
+        "@note": {
+            "icon": "pencil",
+            "foreground": "#7842ff",
+            "background": "#7842ff",
+            "opacity": 0
+        },
+        "@test": {
+            "icon": "gear",
+            "foreground": "#ec0ddf",
+            "background": "#ec0ddf",
+            "opacity": 0
+        },
+        "@todo": {
+            "icon": "checklist",
+            "foreground": "#34eb52",
+            "background": "#34eb52",
+            "opacity": 0
+        },
+        "@warning": {
+            "icon": "alert",
+            "foreground": "#da4e4e",
+            "background": "#da4e4e",
+            "opacity": 0
+        }
+    },
+	"eslint.codeActionsOnSave.mode": "problems",
+    "debug.showBreakpointsInOverviewRuler": true,
+    "editor.rulers": [
+        {
+            "column": 90,
+            "color": "#ffffff08"
+        }
+    ],
+    "search.exclude": {
+        "**/.cache": true,
+        "**/node_modules": true,
+        "**/package-lock.json": true
+    },
+    "eslint.lintTask.enable": true,
+    "eslint.alwaysShowStatus": true
+}
