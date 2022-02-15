@@ -1,12 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
+import { Icon, NavItem } from '#components';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import { Icon } from '@components';
-
-import NavItem from './NavItem';
-
-export default function Navbar () {
+export default memo(() => {
   const router = useRouter();
   const routes = [ 'Plugins', 'Themes', 'Docs', 'Learn', 'About', 'FAQ' ];
   const [ selected, setSelected ] = useState(router?.pathname);
@@ -58,4 +55,4 @@ export default function Navbar () {
       }
     </>
   );
-}
+});

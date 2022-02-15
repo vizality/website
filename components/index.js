@@ -1,4 +1,9 @@
 export { default as Button } from './Button';
 export { default as Canvas } from './Canvas';
 export { default as DelayedRender } from './DelayedRender';
+export { default as FileInput } from './FileInput';
+export { default as Footer } from './Footer';
 export { default as Icon } from './Icon';
+export { default as Navbar } from './Navbar';
+export { default as NavItem } from './NavItem';
+export { default as Spinner } from './Spinner';

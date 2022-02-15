@@ -22,7 +22,7 @@
     "start": "next start"
   },
   "imports": {
-    "#discord": "./utils/discord.js"
+    "#components": "./components/index.js"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",

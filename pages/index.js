@@ -1,4 +1,4 @@
-import { Canvas, Icon } from '@components';
+import { Canvas, Icon } from '#components';
 
 export default function Home () {
   return (

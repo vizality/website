@@ -1,10 +1,9 @@
 // import { useRouter } from 'next/router';
+import { Navbar } from '#components';
 import { useEffect } from 'react';
 import Head from 'next/head';
 
-import { Navbar } from '@layout';
-
-import '@styles/main.scss';
+import '../styles/main.scss';
 
 export default function App ({ Component, pageProps }) {
   // const { pathname } = useRouter();
