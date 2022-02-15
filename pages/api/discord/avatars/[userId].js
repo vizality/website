@@ -41,7 +41,7 @@ export default async function handler (req, res) {
         let endpoint;
         if (user.avatar) {
           extension = user.avatar.startsWith('a_') ? 'gif' : 'png';
-          endpoint = `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=256`;
+          endpoint = `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=512`;
         } else {
           endpoint = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.${extension}`;
         }
@@ -51,6 +51,7 @@ export default async function handler (req, res) {
         const buffer = Buffer.from(arrayBuffer);
 
         res.setHeader('Content-Type', `image/${extension}`);
+        res.setHeader('Content-Length', response.headers.get('content-length'));
         res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
 
         res.send(buffer);
