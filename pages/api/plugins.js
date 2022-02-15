@@ -174,5 +174,5 @@ export default async function handler (req, res) {
   // Run the middleware
   await runMiddleware(req, res, cors);
   // Rest of the API logic
-  res.json({ message: await pie });
+  return res.json({ message: await pie });
 }

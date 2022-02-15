@@ -52,7 +52,6 @@ export default async function handler (req, res) {
      */
     if (userId) {
       const user = await fetchUser(userId);
-      let extension = 'png';
       /**
        * Check if a user is found.
        */
@@ -62,13 +61,13 @@ export default async function handler (req, res) {
          * Check if the user has a custom avatar.
          */
         if (user.avatar) {
-          extension = user.avatar.startsWith('a_') ? 'gif' : 'png';
+          const extension = user.avatar.startsWith('a_') ? 'gif' : 'png';
           endpoint = `https://cdn.discordapp.com/avatars/${userId}/${user.avatar}.${extension}?size=512`;
         /**
          * If they don't have a custom avatar, determine what default to use based on their discriminator.
          */
         } else {
-          endpoint = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.${extension}`;
+          endpoint = `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
         }
 
         /**
@@ -81,18 +80,16 @@ export default async function handler (req, res) {
         /**
          * Set the response headers.
          */
-        res.setHeader('Content-Type', `image/${extension}`);
+        res.setHeader('Content-Type', response.headers.get('content-type'));
         res.setHeader('Content-Length', response.headers.get('content-length'));
         res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
 
-        res.send(buffer);
-      } else {
-        res.status(500).send({ error: 'User not found.' });
+        return res.send(buffer);
       }
-    } else {
-      res.status(500).send({ error: 'User ID is required.' });
+      return res.status(500).send({ error: 'User not found.' });
     }
+    return res.status(500).send({ error: 'User ID is required.' });
   } catch (err) {
-    res.status(500).json({ error: 'Something went wrong retrieving the data.' });
+    return res.status(500).json({ error: 'Something went wrong retrieving the data.' });
   }
 }

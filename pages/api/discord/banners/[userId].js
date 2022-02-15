@@ -52,7 +52,6 @@ export default async function handler (req, res) {
      */
     if (userId) {
       const user = await fetchUser(userId);
-      let extension = 'png';
       /**
        * Check if a user is found.
        */
@@ -62,7 +61,7 @@ export default async function handler (req, res) {
          * Check if the user has a custom banner.
          */
         if (user.banner) {
-          extension = user.banner.startsWith('a_') ? 'gif' : 'png';
+          const extension = user.banner.startsWith('a_') ? 'gif' : 'png';
           endpoint = `https://cdn.discordapp.com/banners/${userId}/${user.banner}.${extension}?size=600`;
         /**
          * Check if there's a banner color.
@@ -93,18 +92,16 @@ export default async function handler (req, res) {
         /**
          * Set the response headers.
          */
-        res.setHeader('Content-Type', `image/${extension}`);
+        res.setHeader('Content-Type', response.headers.get('content-type'));
         res.setHeader('Content-Length', response.headers.get('content-length'));
         res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
 
-        res.send(buffer);
-      } else {
-        res.status(500).send({ error: 'User not found.' });
+        return res.send(buffer);
       }
-    } else {
-      res.status(500).send({ error: 'User ID is required.' });
+      return res.status(500).send({ error: 'User not found.' });
     }
+    return res.status(500).send({ error: 'User ID is required.' });
   } catch (err) {
-    res.status(500).json({ error: 'Something went wrong retrieving the data.' });
+    return res.status(500).json({ error: 'Something went wrong retrieving the data.' });
   }
 }

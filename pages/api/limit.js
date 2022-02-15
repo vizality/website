@@ -60,5 +60,5 @@ export default async function handler (req, res) {
   const limit = await github.rateLimit.get();
   const limitData = { ...limit?.data?.resources?.core };
   limitData.relative_reset = getRelativeTime(new Date(limit?.data?.resources?.core?.reset * 1000), new Date());
-  res.status(200).json({ message: limitData });
+  return res.status(200).json(limitData);
 }
