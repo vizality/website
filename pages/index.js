@@ -10,7 +10,7 @@ export default function Home () {
         >
           Coming Soon...
           <span className='vz-coming-soon-info'>
-            Join our Discord server to get all of the latest community news, updates, previews, and become an alpha tester!
+            Join our Discord server to get all of the latest community news, updates, previews, and become a alpha tester!
           </span>
         </div>
         <div className='vz-coming-soon'>
